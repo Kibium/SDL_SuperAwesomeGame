@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-
+#include <iostream>
 #include "ModuleScene.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
@@ -8,20 +8,34 @@
 
 ModuleScene::ModuleScene() {
 
+	player.x = 170;
+	player.y = 100;
+	player.w = 300;
+	player.h = 300;
+
 }
 
 ModuleScene::~ModuleScene() {
 
+
+
+
+
 }
 
-void ModuleScene::AddTexture(const char* path) {
-	App->textures->Load(path);
+//void ModuleScene::AddTexture(const char* path) {
+	//
 
-}
-
+//}
 bool ModuleScene::Init() {
 
-	AddTexture("SDL_image/hackerman.jpg");
+	//AddTexture();
+	graphics = App->textures->Load("../SDL_image/hackerman.png");
+
+	if (graphics == NULL)
+		std::cout << "No texture" << std::endl;
+	else
+		std::cout << "Texture loaded" << std::endl;
 
 	return true;
 }
@@ -38,15 +52,13 @@ update_status ModuleScene::PreUpdate() {
 
 update_status ModuleScene::Update() {
 
-	App->textures->RenderTextures();
-	
+	App->textures->RenderTexture(player);
 
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleScene::PostUpdate() {
 
-	SDL_RenderPresent(App->renderer->renderer);
 	return UPDATE_CONTINUE;
 }
 

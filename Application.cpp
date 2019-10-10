@@ -37,8 +37,11 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it) {
 		ret = (*it)->Init();
+		ret = (*it)->Start();
+	}
+		
 
 	return ret;
 }

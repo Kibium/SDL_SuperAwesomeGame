@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleAudio.h"
+#include <iostream>
 
 
 
@@ -15,18 +16,26 @@ bool ModuleAudio::Init(){
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
-	test_sound = NULL;
+	test_sound = nullptr;
 
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 		return false;
 
-	test_sound = Mix_LoadMUS("the_grid.mp3");
-	
+	//Set the music
+	test_sound = Mix_LoadMUS("../SDL_mixer/musik.wav");
+	if (test_sound == NULL)
+		std::cout << "No sound found" << std::endl;
+	else
+		std::cout << "Sound found" << std::endl;
+
 	return true;
 
 }
 
 bool ModuleAudio::Start() {
+
+	//Play it on the first frame
+	Mix_PlayMusic(test_sound, -1);
 	return true;
 }
 
@@ -46,7 +55,8 @@ update_status ModuleAudio::PostUpdate() {
 
 bool ModuleAudio::CleanUp() {
 
-	Mix_FreeMusic(test_sound);
+	//Free the music
+	//Mix_FreeMusic(test_sound); //This explodes hard
 
 	return true;
 }

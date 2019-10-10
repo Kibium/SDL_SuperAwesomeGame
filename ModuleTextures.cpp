@@ -85,18 +85,16 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	return texture;
 }
 
-void const ModuleTextures::RenderTextures() {
+void const ModuleTextures::RenderTexture(SDL_Rect r) {
 
-	SDL_Rect *rect = new SDL_Rect();
-	rect->x = 100;
-	rect->y = 100;
-	rect->w = 100;
-	rect->h = 100;
-		
+			
 	for (list<SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it) {
 
 		SDL_SetRenderTarget(App->renderer->renderer, *it);
 
-		SDL_RenderCopy(App->renderer->renderer, *it, NULL, rect);
+		SDL_RenderCopy(App->renderer->renderer, *it, NULL, &r);
+
+		SDL_RenderPresent(App->renderer->renderer);
+
 	}
 }

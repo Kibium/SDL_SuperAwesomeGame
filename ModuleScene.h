@@ -14,7 +14,7 @@ public:
 	bool Init();
 	bool Start();
 
-	void AddTexture(const char* path);
+	//void AddTexture(const char* path);
 
 	update_status PreUpdate();
 	update_status Update();
@@ -23,8 +23,9 @@ public:
 	bool CleanUp();
 
 private:
-	//SDL_Texture* surface;
-	//std::vector<SDL_Texture*> images;
-	
+	SDL_Rect background;
+	SDL_Rect player;
+	SDL_Texture* graphics;
+
 
 };
